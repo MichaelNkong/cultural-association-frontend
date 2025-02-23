@@ -1,12 +1,17 @@
 import Link from "next/link";
 import Users from  "@/app/lib/api/Users";
-
+import Hearder from "@/app/components/ui/header"
+import Section from "@/app/components/ui/section"
 
 export default async function Home() {
   const users= await Users.getUsers(); // Fetch users
-  console.log(users.length); 
+  console.log(users); 
   return (
-    <div className="p-8 text-center">
+  
+    <div className= "p-8 text-center scroll-smooth">
+     <Section/>
+     <div>
+        <Hearder/>
       <h1 className="text-4xl font-bold">Welcome to Our Cultural Association</h1>
       <p className="mt-4 text-lg">Preserving culture and heritage for future generations.</p>
 
@@ -22,6 +27,7 @@ export default async function Home() {
           <p>No users available</p>
         )}
       </ul>
+      </div>
     </div>
   );
 }

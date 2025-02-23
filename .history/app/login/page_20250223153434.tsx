@@ -1,4 +1,4 @@
-'use client'
+use client'
 
 import LoginButton from "@/app/components/ui/login"
 import Link from "next/link";
