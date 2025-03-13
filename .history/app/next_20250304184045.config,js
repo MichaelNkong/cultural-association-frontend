@@ -1,0 +1,28 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    images: {
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "images.unsplash.com",
+        },
+      ],
+    },
+  };
+  
+  module.exports = nextConfig;
+
+
+  module.exports = {
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'images.unsplash.com',
+          port: '',
+          pathname: '/photo-1506748686214-e9df14d4d9d0?w=800&h=400&fit=crop3/**',
+          search: '',
+        },
+      ],
+    },
+  }

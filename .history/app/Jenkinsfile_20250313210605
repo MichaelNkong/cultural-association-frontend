@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_HUB_USER = "your-dockerhub-username"
+        DOCKER_HUB_PASS = "your-dockerhub-password"
+        RENDER_API_KEY = "your-render-api-key"
+        BACKEND_DEPLOY_HOOK = "https://api.render.com/deploy/srv-backend-id"
+        FRONTEND_DEPLOY_HOOK = "https://api.render.com/deploy/srv-frontend-id"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/your-username/my-project.git'
+            }
+        }
+
+        stage('Build & Push Backend Image') {
+            steps {
+                script {
+                    sh "cd backend && docker build -t ${DOCKER_HUB_USER}/my-backend:latest ."
+                    sh "echo ${DOCKER_HUB_PASS} | docker login -u ${DOCKER_HUB_USER} --password-stdin"
+                    sh "docker push ${DOCKER_HUB_USER}/my-backend:latest"
+                }
+            }
+        }
+
+        stage('Build & Push Frontend Image') {
+            steps {
+                script {
+                    sh "cd frontend && docker build -t ${DOCKER_HUB_USER}/my-frontend:latest ."
+                    sh "docker push ${DOCKER_HUB_USER}/my-frontend:latest"
+                }
+            }
+        }
+
+        stage('Trigger Render Deployment') {
+            steps {
+                script {
+                    sh "curl -X POST ${BACKEND_DEPLOY_HOOK} -H 'Authorization: Bearer ${RENDER_API_KEY}'"
+                    sh "curl -X POST ${FRONTEND_DEPLOY_HOOK} -H 'Authorization: Bearer ${RENDER_API_KEY}'"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_HUB_USER = "your-dockerhub-username"
+        DOCKER_HUB_PASS = "your-dockerhub-password"
+        RENDER_API_KEY = "your-render-api-key"
+        FRONTEND_DEPLOY_HOOK = "https://api.render.com/deploy/srv-frontend-id"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/your-username/frontend.git'
+            }
+        }
+
+        stage('Build Frontend Image') {
+            steps {
+                script {
+                    sh "docker build -t ${DOCKER_HUB_USER}/my-frontend:latest ."
+                }
+            }
+        }
+
+        stage('Push Frontend Image to Docker Hub') {
+            steps {
+                script {
+                    sh "echo ${DOCKER_HUB_PASS} | docker login -u ${DOCKER_HUB_USER} --password-stdin"
+                    sh "docker push ${DOCKER_HUB_USER}/my-frontend:latest"
+                }
+            }
+        }
+
+        stage('Trigger Frontend Deployment on Render') {
+            steps {
+                script {
+                    sh "curl -X POST ${FRONTEND_DEPLOY_HOOK} -H 'Authorization: Bearer ${RENDER_API_KEY}'"
+                }
+            }
+        }
+    }
+}
