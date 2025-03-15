@@ -14,9 +14,9 @@ pipeline {
                         script {
                             checkout([
                                 $class: 'GitSCM',
-                                branches: [[name: '*/main']],
+                                branches: [[name: '*/master']],
                                 userRemoteConfigs: [[
-                                    url: 'https://github.com/MichaelNkong/cultural-association-frontend.git',
+                                    url: 'https://github.com/MichaelNkong/association-frontend.git',
                                     credentialsId: 'github-credentials'
                                 ]]
                             ])

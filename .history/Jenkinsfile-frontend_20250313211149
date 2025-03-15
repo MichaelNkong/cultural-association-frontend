@@ -10,19 +10,10 @@ pipeline {
 
     stages {
         stage('Checkout Code') {
-                    steps {
-                        script {
-                            checkout([
-                                $class: 'GitSCM',
-                                branches: [[name: '*/main']],
-                                userRemoteConfigs: [[
-                                    url: 'https://github.com/MichaelNkong/cultural-association-frontend.git',
-                                    credentialsId: 'github-credentials'
-                                ]]
-                            ])
-                        }
-                    }
-                }
+            steps {
+                git branch: 'main', url: 'https://github.com/your-username/frontend.git'
+            }
+        }
 
         stage('Build Frontend Image') {
             steps {
