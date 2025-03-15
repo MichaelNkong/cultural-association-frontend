@@ -17,8 +17,7 @@ COPY . .
 RUN npm run build
 
 # Step 2: Create the production image
-FROM node:23.5.0-alpine 
-
+FROM node:18-alpine
 
 WORKDIR /app
 
