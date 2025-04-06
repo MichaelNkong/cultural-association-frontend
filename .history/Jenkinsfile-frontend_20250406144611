@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+tools {
+    git 'Default'
+}
+    environment {
+
+                PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
+        DOCKER_HUB_USER = "your-dockerhub-username"
+        DOCKER_HUB_PASS = "your-dockerhub-password"
+        RENDER_API_KEY = "your-render-api-key"
+        FRONTEND_DEPLOY_HOOK = "https://api.render.com/deploy/srv-frontend-id"
+    }
+
+    stages {
+        stage('Checkout Code') {
+                    steps {
+                        script {
+                            checkout([
+                                $class: 'GitSCM',
+                                branches: [[name: '*/main']],
+                                userRemoteConfigs: [[
+                                    url: 'https://github.com/MichaelNkong/cultural-association-frontend.git',
+                                    credentialsId: 'github-credentials'
+                                ]]
+                            ])
+                        }
+                    }
+                }
+
+        stage('Build Frontend Image') {
+            steps {
+                script {
+                    sh "docker build -t ${DOCKER_HUB_USER}/my-frontend:latest ."
+                }
+            }
+        }
+
+        stage('Push Frontend Image to Docker Hub') {
+            steps {
+                script {
+                    sh "echo ${DOCKER_HUB_PASS} | docker login -u ${DOCKER_HUB_USER} --password-stdin"
+                    sh "docker push ${DOCKER_HUB_USER}/my-frontend:latest"
+                }
+            }
+        }
+
+        stage('Trigger Frontend Deployment on Render') {
+            steps {
+                script {
+                    sh "curl -X POST ${FRONTEND_DEPLOY_HOOK} -H 'Authorization: Bearer ${RENDER_API_KEY}'"
+                }
+            }
+        }
+    }
+}
