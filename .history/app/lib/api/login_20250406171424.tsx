@@ -4,7 +4,7 @@ class Login {
     private apiUrl: string;
 
     constructor() {
-        this.apiUrl =  process.env.NEXT_PUBLIC_API_BASE_URL+ "/api/auth/login";
+        this.apiUrl =  process.env.NEXT_PUBLIC_API_BASE_URL "api/auth/login";
         if (!this.apiUrl) {
             throw new Error("API URL is missing. Make sure to set NEXT_PUBLIC_NEWS_API in .env.local");   }
     }
