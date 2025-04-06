@@ -2,15 +2,14 @@ pipeline {
     agent any
 tools {
     git 'Default'
-    maven 'Maven_3'
 }
     environment {
 
-        PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
-        DOCKER_HUB_USER = "michaelnkong"
-        DOCKER_HUB_PASS = "HoMoZea4722%?"
-        RENDER_API_KEY = "rnd_khRDdc5JDqJyZh1p1D7hQmaqfqkx"
-        FRONTEND_DEPLOY_HOOK = "https://api.render.com/deploy/srv-cvbc77dds78s73aipv5g?key=thxv2GR6NiQ"
+                PATH = "C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
+        DOCKER_HUB_USER = "your-dockerhub-username"
+        DOCKER_HUB_PASS = "your-dockerhub-password"
+        RENDER_API_KEY = "your-render-api-key"
+        FRONTEND_DEPLOY_HOOK = "https://api.render.com/deploy/srv-frontend-id"
     }
 
     stages {
