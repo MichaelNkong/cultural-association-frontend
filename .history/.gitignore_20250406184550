@@ -10,6 +10,7 @@ out/
 dist/
 
 # local env files
+.env
 !.env.example
 
 # logs
