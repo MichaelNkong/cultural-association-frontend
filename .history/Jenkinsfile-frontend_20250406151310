@@ -32,7 +32,7 @@ tools {
         stage('Build Frontend Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_HUB_USER}/cultural-association-frontend:latest ."
+                    sh "docker build -t ${DOCKER_HUB_USER}/my-frontend:latest ."
                 }
             }
         }
