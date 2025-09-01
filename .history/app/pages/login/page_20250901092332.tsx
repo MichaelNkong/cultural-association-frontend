@@ -30,7 +30,7 @@ export default function LoginPage() {
 
                 router.push("/pages/profile"); // Navigate to profile
             }
-        } catch (error) {
+        } catch (error: any) {
             if (axios.isAxiosError(error)) {
                 if (error.response?.status === 401) {
                     // ✅ Properly access backend error
