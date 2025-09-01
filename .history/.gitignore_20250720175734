@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+.pnpm/
+.npm/
+.yarn/
+
+# production build
+.next/
+out/
+dist/
+
+# local env files
+.env.*
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
