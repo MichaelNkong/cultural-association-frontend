@@ -72,9 +72,7 @@ export default function ProfilePage() {
                                         <Link href = "/pages/privacy" className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             Privacy
                                         </Link>
-                                            <Link href = "/pages/privacy" className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            Privacy
-                                        </Link>
+                                        
                                         <button
                                             onClick={handleLogout}
                                             className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
