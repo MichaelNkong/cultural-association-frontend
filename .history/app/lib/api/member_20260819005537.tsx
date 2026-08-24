@@ -1,0 +1,63 @@
+import axios from 'axios';
+
+class Members {
+    private apiUrl: string;
+    private activationPath: string;
+  
+    constructor() {
+        const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
+        const membersPath = process.env.NEXT_PUBLIC_MEMBERS_API_PATH || "/api7users";
+        this.apiUrl = `${baseUrl.replace(/\/$/, "")}/${membersPath.replace(/^\//, "")}`;
+        this.activationPath = process.env.NEXT_PUBLIC_MEMBER_ACTIVATION_API_PATH || "/api/users/{id}/activation";
+    }
+
+    async getMembers() {
+        const token = localStorage.getItem('token'); 
+        
+        if (!token) {
+            console.error("Token is missing");
+            return;  // Don't proceed without the token
+        }
+
+        try {
+            const response = await axios.get(this.apiUrl, {
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`  // Ensure Authorization is inside headers
+                }
+            });
+            return response;
+        } catch (error) {
+            console.error("Error fetching members:", error);
+            throw error;
+        }
+    }
+    async updateMemberStatus(user_id: number, active: boolean) {
+        const token = localStorage.getItem('token'); 
+        
+        if (!token) {
+            console.error("Token is missing");
+            return;  // Don't proceed without the token
+        }
+
+        try {
+            const activationUrl = this.activationPath.replace("{id}", String(user_id));
+            const response = await axios.put(activationUrl,
+                { active },
+                {
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`  // Ensure Authorization is inside headers
+                    }
+                }
+            );
+            return response;
+        } catch (error) {
+            console.error("Error updating member status:", error);
+            throw error;
+        }
+    }
+}
+
+const  MembersAPI =  new Members();
+export default MembersAPI;

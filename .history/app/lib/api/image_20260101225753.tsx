@@ -1,0 +1,17 @@
+import axios from 'axios';
+import api from "@/app/utils/api"
+class Image {
+    private apiUrl: string;
+  
+    constructor() {
+        this.apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL + '/api/images/optimize';
+        if (!this.apiUrl) {
+            throw new Error("API URL is missing.");
+        }
+    
+ 
+    
+}
+
+const Image = new Image();
+export default Image;

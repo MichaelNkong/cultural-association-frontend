@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f5f1e9;
+  --foreground: #172121;
+  --ink: #172121;
+  --muted: #64706d;
+  --paper: #fffdf8;
+  --coral: #cf6048;
+  --coral-dark: #a94736;
+  --sage: #dbe4d7;
+  --line: rgba(23, 33, 33, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), sans-serif;
+  margin: 0;
+}
+
+a { color: inherit; }
+
+::selection {
+  color: var(--paper);
+  background: var(--coral);
+}
